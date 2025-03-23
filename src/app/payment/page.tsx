@@ -4,7 +4,7 @@ import permit from "@/lib/permit";
 import Navbar from "@/components/Navbar";
 
 export default async function PaymentPage() {
-  const userId = "bannieugbede@gmail.com"; // In a real app, get this from the session or auth provider
+  const userId = "user123"; // In a real app, get this from the session or auth provider
 
   // Check if the user has permission to access the payment page
   const hasAccess = await permit.check(userId, "access", {
