@@ -19,6 +19,7 @@ if (!getApps().length) {
   initializeApp(firebaseAdminConfig);
 }
 
+export const dynamic = "force-dynamic";
 export default async function PaymentPage() {
   let userId: string | null = null;
 
