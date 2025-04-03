@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-// src/app/api/payment/route.ts
 import { NextResponse } from "next/server";
 import { PaymentData, PaymentResponse } from "@/types";
 

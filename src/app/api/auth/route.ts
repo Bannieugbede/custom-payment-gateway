@@ -1,6 +1,6 @@
-// src/app/api/auth/route.ts
 import { NextResponse } from "next/server";
 import permit from "@/lib/permit";
+import { RoleAssignmentCreate } from "permitio";
 
 export async function POST(request: Request) {
   try {
@@ -18,14 +18,17 @@ export async function POST(request: Request) {
 
     // Assign the "customer" role to the user in Permit.io
     console.log(`Assigning role 'customer' to user: ${userId}`);
-    await permit.assignRole(userId, "customer", "default");
+    // await permit.assignRole(userId, "customer", "default");
+    await permit.api.assignRole(
+      JSON.stringify(userId) as unknown as RoleAssignmentCreate,
+    );
     console.log(`Role assigned successfully to user: ${userId}`);
 
     return NextResponse.json({ success: true, user });
   } catch (error) {
     console.error("Auth error:", error);
     return NextResponse.json(
-      { success: false, error: error.message || "Authentication failed" },
+      // { success: false, error: error.message || "Authentication failed" },
       { status: 500 }
     );
   }
