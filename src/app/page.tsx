@@ -1,6 +1,6 @@
 // src/app/page.tsx
 import LoginPage from "./login/page";
-import SignupPage from "./signup/page";
+// import SignupPage from "./signup/page";
 import PaymentForm from "@/components/PaymentForm";
 import permit from "@/lib/permit";
 import { getAuth } from "firebase-admin/auth";
@@ -90,8 +90,8 @@ export default async function PaymentPage() {
         </p>
         <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
           <LoginPage />
-          <span style={{ color: "#666" }}>OR</span>
-          <SignupPage />
+          {/* <span style={{ color: "#666" }}>OR</span>
+          <SignupPage /> */}
         </div>
       </div>
     );

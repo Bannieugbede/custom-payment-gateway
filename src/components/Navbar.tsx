@@ -6,9 +6,7 @@ export default function Navbar() {
     <nav className={styles.navbar}>
       <div className={styles.logo}>Payment Gateway</div>
       <div className={styles.links}>
-        {/* <Link href="/">Home</Link> */}
         <Link href="/login">Login</Link>
-        {/* <Link href="/payment">Payment</Link> */}
       </div>
     </nav>
   );

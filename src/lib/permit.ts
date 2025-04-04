@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import {Permit} from 'permitio'
 
 const permit = new Permit({
