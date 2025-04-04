@@ -2,8 +2,8 @@
 import {Permit} from 'permitio'
 
 const permit = new Permit({
+  token: process.env.PERMIT_API_KEY,
   pdp: "https://cloudpdp.api.permit.io",
-  token:process.env.PERMIT_API_KEY
 });
 
 export default permit;

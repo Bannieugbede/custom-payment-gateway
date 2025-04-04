@@ -12,11 +12,11 @@ export default function SignupPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-  const [role, setRole] = useState("customer");
+  const [role, setRole] = useState("customer"); // Default to "customer"
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const [showPassword, setShowPassword] = useState(false); // Toggle state
+  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
 
   const handleSignup = async () => {
@@ -25,14 +25,16 @@ export default function SignupPage() {
     setSuccess("");
 
     try {
+      // Step 1: Create user with Firebase
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
       await updateProfile(user, { displayName: name });
       const idToken = await user.getIdToken();
 
+      // Step 2: Send data to server-side API
       const res = await axios.post("/api/signup", {
         idToken,
-        role,
+        role, // "customer" by default, or "admin" if selected
         email: user.email,
         name,
       });

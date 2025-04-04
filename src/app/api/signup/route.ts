@@ -18,9 +18,9 @@ if (!getApps().length) {
 }
 
 export async function POST(req: Request) {
-  const { idToken, role, email,} = await req.json();
+  const { idToken, role, email, name } = await req.json();
 
-  if (!idToken || !role || !email) {
+  if (!idToken || !role || !email || !name) {
     return NextResponse.json(
       { error: "Missing required fields" },
       { status: 400 }
@@ -28,21 +28,41 @@ export async function POST(req: Request) {
   }
 
   try {
-    // Step 1: Verify ID token with Firebase
+    // Step 1: Verify Firebase token
     const auth = getAuth();
     const decodedToken = await auth.verifyIdToken(idToken);
     if (decodedToken.email !== email) {
       return NextResponse.json({ error: "Email mismatch" }, { status: 401 });
     }
 
-    // Step 2: Assign role in Permit.io
-    await permit.api.assignRole({
-      user: email, // Use email as user identifier
-      role: role,  // e.g., "customer" or "admin"
-      tenant: "default", // Adjust based on your Permit.io setup
-    });
+    // Step 2: Create user in Permit.io
+    const permitUser = {
+      key: email, // Use email as unique key since no DB ID
+      email,
+      first_name: name.split(" ")[0] || name,
+      last_name: name.split(" ").slice(1).join(" ") || "",
+      attributes: {},
+    };
 
-    // Step 3: Set the cookie
+    try {
+      await permit.api.createUser(permitUser);
+    } catch (error) {
+      if (error !== 409) { // 409 means user exists, proceed
+        throw new Error(`Failed to create user in Permit.io: ${error}`);
+      }
+      console.log("User already exists in Permit.io, proceeding...");
+    }
+
+    // Step 3: Assign role in Permit.io
+    const assignedRole = {
+      user: email,
+      role: role || "customer", // Default to "customer"
+      tenant: "default",
+    };
+
+    await permit.api.assignRole(assignedRole);
+
+    // Step 4: Set cookie and respond
     const response = NextResponse.json({ message: "Signup successful" });
     response.cookies.set("idToken", idToken, {
       httpOnly: true,
@@ -55,7 +75,7 @@ export async function POST(req: Request) {
   } catch (error) {
     console.error("Signup error:", error);
     return NextResponse.json(
-      { error: "Signup failed: " + (error || "Unknown error") },
+      { error: `Signup failed: ${error || "Unknown error"}` },
       { status: 500 }
     );
   }
