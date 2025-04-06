@@ -50,7 +50,6 @@ export default async function PaymentPage() {
   if (!hasAccess) {
     return (
       <div>
-        {/* <Navbar /> */}
         <div style={{ textAlign: "center", padding: "4rem" }}>
           <h1>Unauthorized</h1>
           <p>You do not have permission to access this page.</p>
@@ -61,9 +60,7 @@ export default async function PaymentPage() {
 
   return (
     <div>
-      {/* <Navbar /> */}
       <div style={{ padding: "2rem" }}>
-        <h1 style={{ textAlign: "center" }}>Payment Gateway</h1>
         <PaymentForm />
       </div>
     </div>
