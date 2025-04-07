@@ -110,9 +110,6 @@ export default async function PaymentPage() {
 
   return (
     <div style={{ minHeight: "100vh", padding: "2rem" }}>
-      <h1 style={{ textAlign: "center", fontSize: "1.75rem", marginBottom: "1.5rem" }}>
-        Payment Gateway
-      </h1>
       <PaymentForm />
     </div>
   );
