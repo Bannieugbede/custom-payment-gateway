@@ -78,7 +78,6 @@ export default function PaymentCallback() {
   return (
     <div className={styles.paymentContainer}>
       <div className={styles.paymentBox}>
-        {/* <h1 className={styles.title}>Payment Status</h1> */}
         {status === "loading" && (
           <p className={styles.response}>Verifying your payment, please wait...</p>
         )}
