@@ -1,0 +1,244 @@
+/* src/components/PaymentForm.module.css */
+.paymentContainer {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding: 1rem;
+}
+
+.paymentBox {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+.title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #333;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.userEmail {
+  font-size: 0.9rem;
+  color: #666;
+  text-align: center;
+  margin-bottom: 1.25rem;
+}
+
+.userEmail span {
+  font-weight: 500;
+  color: #007bff;
+}
+
+.paymentForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.formGroup {
+  text-align: left;
+}
+
+.label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #555;
+  margin-bottom: 0.5rem;
+}
+
+.input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  color: #333;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+.formRow {
+  display: flex;
+  gap: 1rem;
+}
+
+.formRow .formGroup {
+  flex: 1;
+}
+
+.formRow .input {
+  width: 100%;
+}
+
+.payButton {
+  width: 100%;
+  padding: 0.85rem;
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.payButton:hover {
+  background: #0056b3;
+}
+
+.payButton.disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.response {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  text-align: center;
+  padding: 0.75rem;
+  border-radius: 6px;
+}
+
+.success {
+  color: #28a745;
+  background: #e6ffe6;
+}
+
+.error {
+  color: #dc3545;
+  background: #ffe6e6;
+}
+
+/* Receipt Styles */
+.receipt {
+  text-align: left;
+}
+
+.receiptDetails {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: #f9f9f9;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+}
+
+.receiptItem {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.receiptLabel {
+  font-weight: 500;
+  color: #555;
+}
+
+.receiptValue {
+  font-weight: 400;
+  color: #333;
+}
+
+/* Button Group for Receipt Page */
+.buttonGroup {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.printButton {
+  flex: 1;
+  padding: 0.85rem;
+  background: #28a745; /* Green to indicate a positive action (printing) */
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.printButton:hover {
+  background: #218838; /* Darker green on hover */
+}
+
+.returnButton {
+  flex: 1;
+  padding: 0.85rem;
+  background: #6c757d; /* Gray to indicate a neutral action (returning) */
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.returnButton:hover {
+  background: #5a6268; /* Darker gray on hover */
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .paymentBox {
+    padding: 1.5rem;
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .input,
+  .payButton {
+    font-size: 0.9rem;
+    padding: 0.65rem;
+  }
+
+  .formRow {
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .formRow .formGroup {
+    width: 100%;
+  }
+
+  .receiptDetails {
+    padding: 0.75rem;
+  }
+
+  .receiptItem {
+    font-size: 0.85rem;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .buttonGroup {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .printButton,
+  .returnButton {
+    font-size: 0.9rem;
+    padding: 0.65rem;
+  }
+}
