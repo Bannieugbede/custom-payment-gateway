@@ -1,15 +1,29 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // src/app/api/signup/route.ts
 import { NextResponse } from "next/server";
 import { getAuth } from "firebase-admin/auth";
 import { initializeApp, getApps, cert } from "firebase-admin/app";
 import permit from "@/lib/permit";
 
+// Validate environment variables
+const requiredEnvVars = {
+  FIREBASE_PROJECT_ID: process.env.FIREBASE_PROJECT_ID,
+  FIREBASE_CLIENT_EMAIL: process.env.FIREBASE_CLIENT_EMAIL,
+  FIREBASE_PRIVATE_KEY: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, "\n"),
+};
+
+for (const [key, value] of Object.entries(requiredEnvVars)) {
+  if (!value) {
+    throw new Error(`Missing required environment variable: ${key}`);
+  }
+}
+
 // Initialize Firebase Admin SDK
 const firebaseAdminConfig = {
   credential: cert({
-    projectId: process.env.FIREBASE_PROJECT_ID,
-    clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-    privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, "\n"),
+    projectId: requiredEnvVars.FIREBASE_PROJECT_ID,
+    clientEmail: requiredEnvVars.FIREBASE_CLIENT_EMAIL,
+    privateKey: requiredEnvVars.FIREBASE_PRIVATE_KEY,
   }),
 };
 
@@ -46,9 +60,9 @@ export async function POST(req: Request) {
 
     try {
       await permit.api.createUser(permitUser);
-    } catch (error) {
-      if (error !== 409) { // 409 means user exists, proceed
-        throw new Error(`Failed to create user in Permit.io: ${error}`);
+    } catch (error: any) {
+      if (error.status !== 409) { // 409 means user exists, proceed
+        throw new Error(`Failed to create user in Permit.io: ${error.message}`);
       }
       console.log("User already exists in Permit.io, proceeding...");
     }
@@ -72,10 +86,10 @@ export async function POST(req: Request) {
     });
 
     return response;
-  } catch (error) {
+  } catch (error: any) {
     console.error("Signup error:", error);
     return NextResponse.json(
-      { error: `Signup failed: ${error || "Unknown error"}` },
+      { error: `Signup failed: ${error.message || "Unknown error"}` },
       { status: 500 }
     );
   }
