@@ -1,38 +1,134 @@
-This is a custom payment gateway using permit.io and [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Custom Payment Gateway with Next.js and Permit.io
 
-## Getting Started
+This project showcases a secure, custom-built payment gateway using Next.js, Firebase, and Permit.io. It implements role-based access control (RBAC) to manage permissions for initiating payments and viewing receipts, ensuring only authorized users can perform sensitive actions. Learn how to create a scalable, secure payment system with custom transaction processing and robust authorization.
+Features
+User Authentication: Secure login and signup with Firebase Authentication.
 
-First, run the development server:
+Role-Based Access Control (RBAC): Manage customer and admin roles using Permit.io.
 
-```bash
+Custom Payment Processing: Server-side transaction handling with secure tokenization and verification.
+
+Secure Architecture: Backend-only Permit.io SDK calls to protect sensitive API keys.
+
+Responsive UI: Cross-platform payment and receipt pages built with Next.js and CSS modules.
+
+Error-Free Build: Resolved useSearchParams issue using server components for dynamic routes.
+
+Live Demo
+Access the live demo: Coming Soon (#) (Update with your deployed URL after deployment)
+Project Structure
+
+├── app/                    # Frontend routes and components
+├── components/             # Reusable UI components
+├── lib/                    # Firebase and Permit.io SDK integrations
+├── public/                 # Static assets
+├── styles/                 # CSS modules for styling
+├── .env.local              # Environment variables (not tracked)
+└── README.md               # Project documentation
+
+Getting Started
+Prerequisites
+Ensure you have the following installed:
+Node.js (>= 18.x)
+
+Vercel CLI (optional for deployment)
+
+A Firebase project with Authentication enabled
+
+A Permit.io account for RBAC
+
+Installation
+Clone the repository:
+bash
+
+git clone https://github.com/Bannieugbede/custom-payment-gateway.git
+cd custom-payment-gateway
+
+Install dependencies:
+bash
+
+npm install
+
+Set up environment variables:
+Create a .env.local file in the project root with the following:
+
+# Permit.io Configuration (server-side)
+PERMIT_API_KEY=<your-permit-api-key>
+
+# Firebase Admin SDK (server-side)
+FIREBASE_PROJECT_ID=<your-firebase-project-id>
+FIREBASE_CLIENT_EMAIL=<your-firebase-client-email>
+FIREBASE_PRIVATE_KEY="your-firebase-private-key"
+
+# Custom Payment Gateway (server-side)
+PAYMENT_GATEWAY_SECRET=<your-custom-payment-secret>
+Create or compose a unique key
+
+
+
+Replace placeholders with your actual credentials. Note: PERMIT_API_KEY and PAYMENT_GATEWAY_SECRET are server-side to ensure security.
+
+Run the development server:
+bash
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000 in your browser to see the app.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Testing Payment Details
+Use the provided Akto_CreditCardGenerator.json file to generate test payment details for the custom payment gateway in a sandbox environment.
 
-Use Akto_CreditCardGenerator.json to fill in payment details
+Authentication Setup
+This project uses Firebase for user authentication and session management. Configure your Firebase project:
+Enable Email/Password Authentication in the Firebase Console.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Add your Firebase credentials to .env.local as shown above.
 
-## Learn More
+No additional database setup is required, as Firebase manages user data and the custom gateway handles transaction data.
 
-To learn more about Next.js, take a look at the following resources:
+Permit.io Integration
+Permit.io is integrated server-side to manage RBAC securely:
+Roles: customer (initiate payments, view receipts), admin (additional permissions).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Permissions: Defined in the Permit.io dashboard (e.g., initiate:payment, view:receipt).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Backend Security: All Permit.io SDK calls occur in API routes (e.g., /api/payment, /api/payment/verify), ensuring the PERMIT_API_KEY is never exposed to the client.
 
-## Deploy on Vercel
+To set up:
+Create a Permit.io account and obtain your API key.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Add the key to .env.local as PERMIT_API_KEY.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Define roles and permissions in the Permit.io dashboard.
+
+Custom Payment Gateway
+The custom payment gateway processes transactions server-side:
+Initiation: Users submit payment details via a secure form, tokenized using PAYMENT_GATEWAY_SECRET.
+
+Verification: Transactions are verified server-side, with receipts displayed only to authorized users.
+
+Security: All sensitive operations occur in backend API routes, protecting user data and credentials.
+
+Deployment
+Deploy your app on the Vercel Platform:
+Push your code to a GitHub repository.
+
+Import the repository into Vercel.
+
+Add the .env.local variables to Vercel’s Environment Variables settings.
+
+Deploy and access your live app.
+
+For detailed instructions, see the Next.js deployment documentation.
+Learn More
+Explore these resources to deepen your understanding:
+Next.js Documentation - Learn about Next.js features and APIs.
+
+Permit.io Documentation - Understand RBAC and permission management.
+
+Firebase Documentation - Guide to authentication and services.
+
+Check out the project’s GitHub repository for feedback and contributions!
+License
+This project is licensed under the MIT License.
+
